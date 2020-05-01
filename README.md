@@ -1,11 +1,11 @@
 # Women-s-Safety
-We are making app by which user can call near by police, text police/friend/relative, send own loacation by tapping one button.
+
+#Simply Useful
+
+We are making app by which user can call near by police, text police/friend/relative, send own location by tapping one button.
 Implemented :
   - Getting co-ordinates.
-  - Calling number.
-  - Selecting contacts.
+  - Sending text.
+  - Calling nearby Police Station.
   
-To Do:
-  - Implement location based police station numbers.
-  - Adding sms (text) to fav. option.
-  - UI.
+It will be usefull for any Women of our country who feels unsafe.
