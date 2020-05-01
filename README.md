@@ -11,6 +11,10 @@ Implemented :
     Sending text.
     Calling nearby Police Station.
     It will be usefull for any Women of our country who feels unsafe.
+    
+    QUICK PREVIEW :
+    
+        YouTube:  https://youtu.be/JwHKE8godkY
 
 
 ## Getting Started
