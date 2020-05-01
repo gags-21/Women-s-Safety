@@ -4,6 +4,17 @@ Application for Women&#x27;s Safety
 
 ## Getting Started
 
+###Simply Useful
+
+We are making app by which user can call near by police, text police/friend/relative, send own location by tapping one button. Implemented :
+
+Getting co-ordinates.
+Sending text.
+Calling nearby Police Station.
+It will be usefull for any Women of our country who feels unsafe.
+
+
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
