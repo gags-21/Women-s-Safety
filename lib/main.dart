@@ -1,12 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sms_maintained/sms.dart';
-import 'dart:io';
 import 'package:geolocator/geolocator.dart';
 import 'package:call_number/call_number.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:call_number/call_number.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const apiKEY = 'AIzaSyCbLa4X4aR_Tmj-MJxwrlII4vavtJ7oxWs';
 
@@ -17,7 +17,7 @@ class WomenSafety extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: Colors.grey[900],
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -41,6 +41,9 @@ class _SafetyPageState extends State<SafetyPage> {
   String policePhone;
   String location;
   String placeIDforNumber;
+  final myController = TextEditingController();
+  final myController1 = TextEditingController();
+  final myController2 = TextEditingController();
 
   @override
   void reassemble() {
@@ -54,6 +57,7 @@ class _SafetyPageState extends State<SafetyPage> {
     // TODO: implement initState
     super.initState();
     getLocation();
+    getStringValuesSF();
   }
 
   dynamic getLocation() async {
@@ -115,37 +119,175 @@ class _SafetyPageState extends State<SafetyPage> {
     print(address1);
 
     SmsSender sender = SmsSender();
-    String address = '+918879527426';
-    sender.sendSms(new SmsMessage(address, 'Please help I am at $address1'));
-    String address2 = '+91123456789';
-    sender.sendSms(new SmsMessage(address2, 'Please help I am at $address1'));
-    String address3 = '+917208523020';
-    sender.sendSms(new SmsMessage(address3, 'Please help I am at $address1'));
+
+    if (ph1 == '') {
+      String address = '+91$phone1';
+      sender.sendSms(new SmsMessage(address, 'Please help I am at $address1'));
+      String address2 = '+91$phone2';
+      sender.sendSms(new SmsMessage(address2, 'Please help I am at $address1'));
+      String address3 = '+91$phone3';
+      sender.sendSms(new SmsMessage(address3, 'Please help I am at $address1'));
+    } else {
+      String address = '+91$ph1';
+      sender.sendSms(new SmsMessage(address, 'Please help I am at $address1'));
+      String address2 = '+91$ph2';
+      sender.sendSms(new SmsMessage(address2, 'Please help I am at $address1'));
+      String address3 = '+91$ph3';
+      sender.sendSms(new SmsMessage(address3, 'Please help I am at $address1'));
+    }
+  }
+
+  String ph1 = '';
+  String ph2 = '';
+  String ph3 = '';
+  String phone1;
+  String phone2;
+  String phone3;
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    phone1 = prefs.getString('ph1');
+    phone2 = prefs.getString('ph2');
+    phone3 = prefs.getString('ph3');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: RawMaterialButton(
-        onPressed: () async {
-          setState(() {
-            getNumber();
-            getDetails();
-            sendSms();
-          });
-        },
-        onLongPress: () {},
-        elevation: 2.0,
-        fillColor: Colors.white,
-        child: GestureDetector(
-          child: Icon(
-            Icons.ring_volume,
-            size: 80.0,
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 15,
+        ),
+        Container(
+          width: 200,
+          height: 30,
+          child: TextField(
+            style: TextStyle(
+              color: Colors.white,
+            ),
+            onEditingComplete: () {},
+            controller: myController,
+            keyboardType: TextInputType.numberWithOptions(),
+            decoration: InputDecoration(
+              hintText: 'Ph. no.',
+              hintStyle: TextStyle(
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
-        padding: EdgeInsets.all(15.0),
-        shape: CircleBorder(),
-      ),
+        FlatButton(
+          shape: CircleBorder(),
+          color: Colors.teal[700],
+          child: Text(
+            'Save',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          onPressed: () async {
+            final prefs = await SharedPreferences.getInstance();
+            ph1 = myController.text;
+            prefs.setString('ph1', "$ph1");
+            print(ph1);
+          },
+        ),
+        Container(
+          width: 200,
+          height: 30,
+          child: TextField(
+            controller: myController1,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+            keyboardType: TextInputType.numberWithOptions(),
+            decoration: InputDecoration(
+              hintText: 'Ph. no.',
+              hintStyle: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        FlatButton(
+          shape: CircleBorder(),
+          color: Colors.teal[700],
+          child: Text(
+            'Save',
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () async {
+            final prefs = await SharedPreferences.getInstance();
+            ph2 = myController1.text;
+            prefs.setString('ph2', "$ph2");
+            print(ph2);
+          },
+        ),
+        Container(
+          width: 200,
+          height: 30,
+          child: TextField(
+            style: TextStyle(
+              color: Colors.white,
+            ),
+            controller: myController2,
+            keyboardType: TextInputType.numberWithOptions(),
+            decoration: InputDecoration(
+              hintText: 'Ph. no.',
+              hintStyle: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        FlatButton(
+          color: Colors.teal[700],
+          shape: CircleBorder(),
+          child: Text(
+            'Save',
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () async {
+            final prefs = await SharedPreferences.getInstance();
+            ph3 = myController2.text;
+            prefs.setString('ph3', "$ph3");
+            print(ph3);
+          },
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        Center(
+          child: RawMaterialButton(
+            onPressed: () async {
+              setState(() {
+                sendSms();
+                getDetails();
+              });
+            },
+            onLongPress: () {
+              setState(() {
+                getNumber();
+              });
+            },
+
+            elevation: 2.0,
+            fillColor: Colors.white,
+//                    child: GestureDetector(
+            child: Icon(
+              Icons.ring_volume,
+              size: 80.0,
+            ),
+//                    ),
+            padding: EdgeInsets.all(15.0),
+            shape: CircleBorder(),
+          ),
+        ),
+      ],
     );
   }
 }
+
+
+
