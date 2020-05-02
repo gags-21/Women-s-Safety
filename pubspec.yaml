@@ -30,6 +30,7 @@ dependencies:
   http: ^0.12.1
   sms_maintained: ^0.2.5
   contacts_service: ^0.4.6
+  shared_preferences: ^0.5.7
 
 dev_dependencies:
   flutter_test:
