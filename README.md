@@ -2,7 +2,7 @@
 
 Application for Women&#x27;s Safety
 
-##Simply Useful
+## Simply Useful
 
 We are making app by which user can call near by police, text police/friend/relative, send own location by tapping one button. 
 Implemented :
